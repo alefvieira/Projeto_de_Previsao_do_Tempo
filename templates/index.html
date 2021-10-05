@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsão do Tempo</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="shortcut icon" href="#">
+    
+</head>
+<body >
+    <header class="container" >
+        <h1><a href="/">Previsão do Tempo</a></h1>
+        <div><h1><a href="graficos" >Acessar Gráficos</a></h1></div>
+    </header>
+    
+    <main class="container">
+        <form class="regiao_Pesq">
+            <div >
+                <input type="radio" class="seleciona_r" name="regiao"  id="norte" value="Norte"><label class="anima" for="norte">Norte</label> 
+            </div><div>
+                <input type="radio" class="seleciona_r" name="regiao" id="nordeste" value="Nordeste"  ><label class="anima" for="nordeste">Nordeste </label> 
+            </div><div>
+                <input type="radio" class="seleciona_r" name="regiao" id="centroeste" value="Centro-Oeste"  ><label class="anima" for="centroeste">Centro-Oeste</label> 
+            </div><div>
+                <input type="radio" class="seleciona_r" name="regiao" id="sudeste" value="Sudeste"  checked  ><label class="anima" for="sudeste">Sudeste</label> 
+            </div><div>
+                <input type="radio" class="seleciona_r" name="regiao" id="sul" value="Sul"  ><label class="anima" for="sul">Sul</label> 
+            </div>
+        </form>
+        <div class="container"><h2 class="regiao_capitais"></h2></div> 
+        <section class="container" id="section_conteudo"></section>
+    </main>
+
+    <footer class="container">
+        <p>Desenvolvido por Álef Vieira Coutinho</p>
+        <p>e Kennedy Oliveira</p>
+    </footer>
+    
+    <script type="text/javascript" src="../static/javascript.js">
+    </script>
+        
+</body>
+</html>

@@ -1,0 +1,228 @@
+*{
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+html,body{
+    height: 100%; 
+}
+.container{
+    padding: 10px 15% ;
+
+}
+/* seção da página */
+main.container{
+    /* border: solid 1px black; */
+    min-height: calc(100% - 200px - 117px);
+    padding: 70px 0;
+}
+main h2{
+    padding: 15px 0;
+}
+main h3{
+    padding: 10px 0;
+}
+main p{
+    padding: 5px 0;
+}
+main p.last_p{
+    padding-bottom: 15px;
+}
+/* BOTOES _________________*/
+form.regiao_Pesq input[type=radio]{
+    display: none;
+}
+
+form.regiao_Pesq label.anima{
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: black;
+    border:solid 1px black;
+    color: white;
+    /* opacity: .8; */
+}
+.regiao_Pesq input[type=radio]:checked + label.anima{
+    color: black;
+    background: white;
+    opacity: 2px;
+}
+form.regiao_Pesq label.anima:hover{
+    background-color: rgb(158, 193, 233);
+    
+    border:solid 1px black;
+    color: black;    
+}
+/* FIM DO BOTAO _________________*/
+
+.regiao_Pesq{
+
+    margin: 0 auto;
+    /* border: solid 1px black; */
+    max-width: 1280x;
+    width: 80%;
+    font-size: 20px;
+
+}
+.regiao_Pesq div{
+    /* border: solid 1px black; */
+    width: 20%;
+    min-width: 200px ;
+    display: inline-block;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.regiao_Pesq label{
+    margin-left: 30px;
+    /* border: solid 1px black; */
+
+}
+.regiao_Pesq input[type=radio]{
+    /* display: inline-block; */
+    min-width: 20px;
+    min-height: 20px;
+}
+/* cabeçalho */
+footer, header{
+    text-align: center;
+}
+header{
+    background-color: rgb(33, 52, 105);
+}
+
+
+h2.regiao_capitais{
+    font-size: 35px;
+    text-align: center;
+    padding: 50px 0 ;
+}
+/* rodapé */
+footer{
+    width: 100%;
+    height: 200px;
+    font-weight: 300;
+    padding: 15px;
+}
+
+footer.container{
+    color: white;
+    background: black;
+    opacity: 0.8;
+    padding: 45px 0;
+    border-top: solid 5px rgb(119, 154, 216);
+}
+#section_conteudo{
+    padding: 0 5%;
+    text-align: center;
+}
+
+.posicao_div{
+    margin-bottom: 10px;
+    width: 25%;
+    display: inline-block;
+    margin-right: -4px;
+    max-width: 500px;
+    border-top: solid 5px black;
+    border-bottom: solid 3px black;
+    border-radius: 30px;
+    padding-left: 5px;
+}
+/* PAGINA DOIS */
+
+.posicao-div-img h1{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+section div.posicao-div-img:nth-last-of-type(){
+    margin-bottom: 250px ;
+}
+section div img.posicao-img{
+
+    text-align: center;
+    margin: 0 auto;
+
+}
+.posicao-div-img {
+
+    text-align: center;
+    margin: 30px auto;
+}
+.posicao-div-img img[alt="Gráfico de temperatura Sul"]{
+    margin-bottom: 150px ;
+}
+
+h1 a{
+    text-decoration: none;
+    color: white;
+}
+header h1{
+    color: white;
+    padding: 10px 0;
+}
+
+@media screen and (max-width: 1680px ) {
+    /* .regiao_Pesq div:first-of-type{
+        margin-left: 0;
+    }  */
+}
+@media screen and (max-width: 1280px ) {
+    main.container{
+        /* border: solid 1px black; */
+        min-height: calc(100% - 200px - 117px);
+        margin: 0 5%;
+        padding: 10px 0;
+    }
+
+    .posicao_div{
+        width: 50%;
+    }
+    .regiao_Pesq div{
+        width: 25%;   
+    }
+
+}
+@media screen and (max-width: 700px ){
+    .posicao_div{
+        width: 100%;
+    }
+    .regiao_Pesq div{
+        width: 50%;   
+    }
+    main.container{
+        margin: 0;
+    }
+    
+}
+
+@media screen and (max-width: 640px ){
+    header h1{
+        font-size:25px ;
+    }
+    .posicao-img{
+        width: 100%;
+    }
+    form.regiao_Pesq label.anima{
+        font-size: 15px;
+        width: 150px;
+        height: 40px;
+    }
+    .regiao_Pesq div{
+        width: 33%;   
+    }
+}
+@media screen and (max-width: 540px ){
+    .posicao_div{
+        width: 100%;
+    }
+    .regiao_Pesq div{
+        width: 100%;
+    }
+}
