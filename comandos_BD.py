@@ -130,8 +130,8 @@ def query_cria_grafico():
         plot.get_figure().savefig(f"static/graficos/temperatura_{repet}.png")
         plt.close()
     
-query_cria_grafico()
 
+# FUNÇÃO QUE ATUALIZA O BANCO DE DADOS E CHAMA AS FUNÇÕES DE GERAR GRAFICOS E ATUALIZAR JSON
 def atualizarValores():
     sql_compara = "SELECT atualizacao FROM valores where codigo = 'SBBE'"
     compara = consultar(Conexao_BD.vcon, sql_compara)
@@ -151,8 +151,8 @@ def atualizarValores():
 
             sql = f"INSERT or REPLACE INTO valores  VALUES ('{dec[i]['codigo']}','{dec[i]['atualizacao']}',{int(dec[i]['pressao'])},{int(dec[i]['temperatura'])},'{dec[i]['tempo']}','{dec[i]['tempo_desc']}',{int(dec[i]['umidade'])},{int(dec[i]['vento_dir'])},{int(dec[i]['vento_int'])},'{dec[i]['intensidade']}') " 
             query(Conexao_BD.vcon, sql)
-        criaConteudoJSON()
-        query_cria_grafico()
+        criaConteudoJSON() # VAI ATUALIZAR O ARQUIVO JSON
+        query_cria_grafico() # VAI CRIAR OS GRAFICOS
 
     else:
         print("ESTÃO IGUAIS OU DEU ERRO")
