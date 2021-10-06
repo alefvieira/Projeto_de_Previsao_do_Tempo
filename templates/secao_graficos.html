@@ -6,39 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gráficos da temperatura regional</title>
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="shortcut icon" href="#">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
-<body>
-
+<body class="cor-fundo">
+    
     <header class="container" ><h1><a href="/">Previsão do Tempo</a></h1></header>
-    <section>
-        <div class="posicao-div-img"><h1>Nordeste</h1>
-            <img class="posicao-img" src="../static/graficos/temperatura_Nordeste.png" alt="Gráfico de temperatura Nordeste">
-        </div>
+    <section class="sec_um">
+            <select name="Selecao_graficos" id="select_grafic">
+                <option  value="0">Selecione o tipo de Gráfico</option>
+                <!-- <option  value="pressao">Pressão</option> -->
+                <option  value="temperatura">Temperatura</option>
+                <option  value="umidade">Umidade</option>
+                <!-- <option  value="vento_dir">Venta Dir</option>
+                <option  value="vento_int">Vento Int</option> -->
+            </select>
     </section>
-    <section>
-        <div class="posicao-div-img"><h1>Norte</h1>
-            <img class="posicao-img" src="../static/graficos/temperatura_Norte.png" alt="Gráfico de temperatura Norte">
-        </div>
+    <!-- SEÇÃO QUE VAI FICAR AS IMAGENS -->
+    <section class="sec_dois"> 
     </section>
-    <section>
-        <div class="posicao-div-img"><h1>Centro-Oeste</h1>
-            <img class="posicao-img" src="../static/graficos/temperatura_Centro-Oeste.png" alt="Gráfico de temperatura Centro-Oeste">
-        </div>
-    </section>
-    <section>
-        <div class="posicao-div-img"><h1>Sudeste</h1>
-            <img class="posicao-img" src="../static/graficos/temperatura_Sudeste.png" alt="Gráfico de temperatura Sudeste">
-        </div>
-    </section>
-    <section>
-        <div class="posicao-div-img"><h1>Sul</h1>
-            <img class="posicao-img" src="../static/graficos/temperatura_Sul.png" alt="Gráfico de temperatura Sul">
-        </div>
-    </section>
-    <footer class="container">
+
+    <!-- <footer class="container posicao-footer">
     
         <p>Desenvolvido por Álef Vieira Coutinho</p>
         <p>e Kennedy Oliveira</p>
-    </footer>
+    </footer> -->
+    <script type="text/javascript" src="../static/javascript.js">
+    </script>
 </body>
 </html>

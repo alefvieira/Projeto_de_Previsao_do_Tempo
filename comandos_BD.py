@@ -103,7 +103,16 @@ def insertValores():
     query(Conexao_BD.vcon, sql)
 
 #ADICIONAR OS GRAFICOS
-def query_cria_grafico():
+def query_cria_grafico(tygrafico):
+    sql_compara = "SELECT atualizacao FROM valores where codigo = 'SBBE'"
+    compara = consultar(Conexao_BD.vcon, sql_compara)
+
+    data = chamaXML()
+
+    dec = data['capitais']['metar']
+    #ESSE IF VAI IMPERDIR QUE OS MESMOS GRAFICOS SE REPITAM
+    # if compara[0][0] != dec[0]['atualizacao']:
+        # ESTRUTURA DE REPETIÇÃO QUE VAI GERAR OS GRAFICOS
     lista_graficos = ['Nordeste' , 'Norte', 'Centro-Oeste', 'Sul', 'Sudeste']
     for repet in lista_graficos:
         sql = f"SELECT  capitais.capital, valores.pressao, valores.temperatura, valores.umidade, valores.vento_dir, valores.vento_int  FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{repet}'"
@@ -124,12 +133,39 @@ def query_cria_grafico():
         dic['umidade'] = colunas[3]
         dic['vento_dir'] = colunas[4]
         dic['vento_int'] = colunas[5]
+        
+        if tygrafico == 'pressao':
+            colunas = pd.DataFrame(dic, columns=['capital', 'pressao'])
+            plot = sns.barplot(data=colunas, x='capital', y='pressao')
 
-        colunas = pd.DataFrame(dic, columns=['capital', 'temperatura'])
-        plot = sns.barplot(data=colunas, x='capital', y='temperatura')
-        plot.get_figure().savefig(f"static/graficos/temperatura_{repet}.png")
+        elif tygrafico == 'temperatura': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'temperatura'])
+            plot = sns.barplot(data=colunas, x='capital', y='temperatura')
+
+        elif tygrafico == 'umidade': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'umidade'])
+            plot = sns.barplot(data=colunas, x='capital', y='umidade')
+
+        elif tygrafico == 'vento_dir': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'vento_dir'])
+            plot = sns.barplot(data=colunas, x='capital', y='vento_dir')
+            
+        elif tygrafico == 'vento_int': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'vento_int'])
+            plot = sns.barplot(data=colunas, x='capital', y='vento_int')
+        
+        else: break
+
+        plot.get_figure().savefig(f"static/graficos/grafico_{repet}_{tygrafico}.png")
         plt.close()
-    
+    print("FEITO")
+            
+        
+# query_cria_grafico('umidade')
+# query_cria_grafico('pressao')
+# query_cria_grafico('temperatura')
+# query_cria_grafico('vento_dir')
+# query_cria_grafico('vento_int')
 
 # FUNÇÃO QUE ATUALIZA O BANCO DE DADOS E CHAMA AS FUNÇÕES DE GERAR GRAFICOS E ATUALIZAR JSON
 def atualizarValores():
@@ -138,10 +174,8 @@ def atualizarValores():
 
     data = chamaXML()
 
-    # print(compara[0][0])
-
     dec = data['capitais']['metar']
-    # print(dec)
+    print(f"{compara[0][0]} : {dec[0]['atualizacao']}")
     if compara[0][0] != dec[0]['atualizacao']:
         for i in  range(0, len(dec)):
             if dec[i]['tempo_desc'] ==  "PredomÃ­nio de Sol":

@@ -8,23 +8,64 @@ function select_sec(){
 
 // FUNÇÃO JQUERY QUE VAI CARREGAR AS INFORMAÇÕES NO ONLOAD DA PÁGINA
 $(function(){
+    //tag select da página 2 do html 
+    $("#select_grafic").on("change", function(){
+        
+        var valor_select = $(this).val()
+        // alert(valor_select)
+        // envia para servidor o valor
+        $.ajax({
+            method: "POST",
+            url: "/graficos",
+            data: {'tygrafico': valor_select}
+        })
+        sec_dois = document.querySelector('.sec_dois')
+        
+        sec_dois.innerHTML = ""
+        // setTimeout(function(){
+        //     // alert('TEMPO')
+        // }, 1000);
+
+        if (valor_select == "0"){
+            $(".sec_dois").hide()
+            
+        }else {
+            // ESSA CODICIONAL VAI CRIAR AS TAGS QUE CHAMAM AS IMAGENS DOS GRÁFICOS
+            var lista = ['Nordeste', 'Norte', 'Centro-Oeste', 'Sudeste', 'Sul']
+            $(".posicao-Nordeste").remove();
+            $(".posicao-Norte").remove();
+            $(".posicao-Centro-Oeste").remove();
+            $(".posicao-Sudeste").remove();
+            $(".posicao-Sul").remove();
+            
+            for (let i of lista){
+                sec_dois.innerHTML += `<h1>${i}</h1><div class="posicao-${i}"></div>`
+                grafico = `url('../static/graficos/grafico_${i}_${valor_select}.png')`
+                
+                $(".posicao-"+i).css("background-image", grafico)
+            }
+            $(".sec_dois").show()
+            
+            // setTimeout(function(){
+                
+            // }, 2000);
+        
+        }  
+    }) 
+    // seciona
+
     $.getJSON("../static/conteudo_secao.json", function(data) { 
         cria_elementos(data) // FUNÇÃO QUE VAI CRIAR OS ELEMENTOS
 
         // ABRE O ARQUIVO JSON
         $(".seleciona_r").click(function(){
             cria_elementos(data) // FUNÇÃO QUE VAI CRIAR OS ELEMENTOS
-        })  
-
-    })
-    
+        }) 
+    })  
 });
 
+
 function cria_elementos(data){
-    // var posicao_div = document.createElement('div')
-    // posicao_div.classList.add('posicao_div') // VAI CRIAR A CLASS NO ELEMENTO   
-    // section_conteudo.appendChild(posicao_div)
-    
     console.log(data)
     
     var valor = select_sec()
@@ -56,6 +97,17 @@ function cria_elementos(data){
 }
 
 
+// setTimeout(function(){
+// }, 1000);
+// var xhr = new XMLHttpRequest();
+
+// xhr.onreadystatechange = function(){
+//     if (xhr.readyState == 4 && xhr.status == 200){
+//         console.log(xhr)
+//     }
+// }
+// xhr.open("GET", "file:///D:/PROGRAMAÇÃO%20GERAL/Projeto_de_Previsao_do_Tempo/templates/secao_graficos.html")
+// xhr.send()
 // método de leitura do arquivo json
 // const getTodos = callback => {
 //     const request = new XMLHttpRequest()
@@ -88,45 +140,7 @@ function cria_elementos(data){
 // })
 
 
-
-//QUANDO SE MANIPULA CLASSES E IDS É NECESSÁRIO CONCATENAR COM O SIMBOLO DO ATRIBUTO(ELEMENTO)
-
-// function ocu_visu_reg(valor){
-//     if (valor == "Sudeste"){
-//         document.querySelector(".Sul").style.display = "none"
-//         document.querySelector(".Norte").style.display = "none"
-//         document.querySelector(".Nordeste").style.display = "none"
-//         document.querySelector(".Centro-Oeste").style.display = "none"
-//         document.querySelector(".Sudeste").style.display = "block"
-//     }
-//     if (valor == "Sul"){
-//         document.querySelector(".Sul").style.display = "block"
-//         document.querySelector(".Norte").style.display = "none"
-//         document.querySelector(".Nordeste").style.display = "none"
-//         document.querySelector(".Centro-Oeste").style.display = "none"
-//         document.querySelector(".Sudeste").style.display = "none"
-//     }
-//     if (valor == "Centro-Oeste"){
-//         document.querySelector(".Sul").style.display = "none"
-//         document.querySelector(".Norte").style.display = "none"
-//         document.querySelector(".Nordeste").style.display = "none"
-//         document.querySelector(".Centro-Oeste").style.display = "block"
-//         document.querySelector(".Sudeste").style.display = "none"
-//     }
-//     if (valor == "Norte"){
-//         document.querySelector(".Sul").style.display = "none"
-//         document.querySelector(".Norte").style.display = "block"
-//         document.querySelector(".Nordeste").style.display = "none"
-//         document.querySelector(".Centro-Oeste").style.display = "none"
-//         document.querySelector(".Sudeste").style.display = "none"
-//     }
-//     if (valor == "Nordeste"){
-//         document.querySelector(".Sul").style.display = "none"
-//         document.querySelector(".Norte").style.display = "none"
-//         document.querySelector(".Nordeste").style.display = "block"
-//         document.querySelector(".Centro-Oeste").style.display = "none"
-//         document.querySelector(".Sudeste").style.display = "none"
-//     }
-//     return true
-
-// }
+// let minhaUrl = `${window.location.origin}/${valor_select}`
+        // var url = window.location.search;
+        // var minhaUrl = window.location.href = `${window.location.search}?`+valor_select
+        // alert(minhaUrl)
