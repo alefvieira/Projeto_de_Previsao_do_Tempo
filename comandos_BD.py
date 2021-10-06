@@ -111,53 +111,53 @@ def query_cria_grafico(tygrafico):
 
     dec = data['capitais']['metar']
     #ESSE IF VAI IMPERDIR QUE OS MESMOS GRAFICOS SE REPITAM
-    # if compara[0][0] != dec[0]['atualizacao']:
+    if compara[0][0] != dec[0]['atualizacao']:
         # ESTRUTURA DE REPETIÇÃO QUE VAI GERAR OS GRAFICOS
-    lista_graficos = ['Nordeste' , 'Norte', 'Centro-Oeste', 'Sul', 'Sudeste']
-    for repet in lista_graficos:
-        sql = f"SELECT  capitais.capital, valores.pressao, valores.temperatura, valores.umidade, valores.vento_dir, valores.vento_int  FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{repet}'"
-        res = consultar(Conexao_BD.vcon, sql)
-        dic = {
-            'capital': "",
-            'pressao': "",
-            'temperatura': "",
-            'umidade': "",
-            'vento_dir': "",
-            'vento_int': "",
-        }
-        # dic['capital'] = 
-        colunas = pd.DataFrame(res) # ESSE METODO COLOCA NOMES NAS COLUNAS
-        dic['capital'] = colunas[0]
-        dic['pressao'] = colunas[1]
-        dic['temperatura'] = colunas[2]
-        dic['umidade'] = colunas[3]
-        dic['vento_dir'] = colunas[4]
-        dic['vento_int'] = colunas[5]
-        
-        if tygrafico == 'pressao':
-            colunas = pd.DataFrame(dic, columns=['capital', 'pressao'])
-            plot = sns.barplot(data=colunas, x='capital', y='pressao')
-
-        elif tygrafico == 'temperatura': 
-            colunas = pd.DataFrame(dic, columns=['capital', 'temperatura'])
-            plot = sns.barplot(data=colunas, x='capital', y='temperatura')
-
-        elif tygrafico == 'umidade': 
-            colunas = pd.DataFrame(dic, columns=['capital', 'umidade'])
-            plot = sns.barplot(data=colunas, x='capital', y='umidade')
-
-        elif tygrafico == 'vento_dir': 
-            colunas = pd.DataFrame(dic, columns=['capital', 'vento_dir'])
-            plot = sns.barplot(data=colunas, x='capital', y='vento_dir')
+        lista_graficos = ['Nordeste' , 'Norte', 'Centro-Oeste', 'Sul', 'Sudeste']
+        for repet in lista_graficos:
+            sql = f"SELECT  capitais.capital, valores.pressao, valores.temperatura, valores.umidade, valores.vento_dir, valores.vento_int  FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{repet}'"
+            res = consultar(Conexao_BD.vcon, sql)
+            dic = {
+                'capital': "",
+                'pressao': "",
+                'temperatura': "",
+                'umidade': "",
+                'vento_dir': "",
+                'vento_int': "",
+            }
+            # dic['capital'] = 
+            colunas = pd.DataFrame(res) # ESSE METODO COLOCA NOMES NAS COLUNAS
+            dic['capital'] = colunas[0]
+            dic['pressao'] = colunas[1]
+            dic['temperatura'] = colunas[2]
+            dic['umidade'] = colunas[3]
+            dic['vento_dir'] = colunas[4]
+            dic['vento_int'] = colunas[5]
             
-        elif tygrafico == 'vento_int': 
-            colunas = pd.DataFrame(dic, columns=['capital', 'vento_int'])
-            plot = sns.barplot(data=colunas, x='capital', y='vento_int')
-        
-        else: break
+            if tygrafico == 'pressao':
+                colunas = pd.DataFrame(dic, columns=['capital', 'pressao'])
+                plot = sns.barplot(data=colunas, x='capital', y='pressao')
 
-        plot.get_figure().savefig(f"static/graficos/grafico_{repet}_{tygrafico}.png")
-        plt.close()
+            elif tygrafico == 'temperatura': 
+                colunas = pd.DataFrame(dic, columns=['capital', 'temperatura'])
+                plot = sns.barplot(data=colunas, x='capital', y='temperatura')
+
+            elif tygrafico == 'umidade': 
+                colunas = pd.DataFrame(dic, columns=['capital', 'umidade'])
+                plot = sns.barplot(data=colunas, x='capital', y='umidade')
+
+            elif tygrafico == 'vento_dir': 
+                colunas = pd.DataFrame(dic, columns=['capital', 'vento_dir'])
+                plot = sns.barplot(data=colunas, x='capital', y='vento_dir')
+                
+            elif tygrafico == 'vento_int': 
+                colunas = pd.DataFrame(dic, columns=['capital', 'vento_int'])
+                plot = sns.barplot(data=colunas, x='capital', y='vento_int')
+            
+            else: break
+
+            plot.get_figure().savefig(f"static/graficos/grafico_{repet}_{tygrafico}.png")
+            plt.close()
     print("FEITO")
             
         
@@ -175,7 +175,7 @@ def atualizarValores():
     data = chamaXML()
 
     dec = data['capitais']['metar']
-    print(f"{compara[0][0]} : {dec[0]['atualizacao']}")
+    # print(f"{compara[0][0]} : {dec[0]['atualizacao']}")
     if compara[0][0] != dec[0]['atualizacao']:
         for i in  range(0, len(dec)):
             if dec[i]['tempo_desc'] ==  "PredomÃ­nio de Sol":
@@ -185,10 +185,10 @@ def atualizarValores():
 
             sql = f"INSERT or REPLACE INTO valores  VALUES ('{dec[i]['codigo']}','{dec[i]['atualizacao']}',{int(dec[i]['pressao'])},{int(dec[i]['temperatura'])},'{dec[i]['tempo']}','{dec[i]['tempo_desc']}',{int(dec[i]['umidade'])},{int(dec[i]['vento_dir'])},{int(dec[i]['vento_int'])},'{dec[i]['intensidade']}') " 
             query(Conexao_BD.vcon, sql)
+        
         criaConteudoJSON() # VAI ATUALIZAR O ARQUIVO JSON
-        query_cria_grafico() # VAI CRIAR OS GRAFICOS
-
-    else:
+        
+    else: 
         print("ESTÃO IGUAIS OU DEU ERRO")
 
 

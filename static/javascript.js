@@ -45,10 +45,6 @@ $(function(){
                 $(".posicao-"+i).css("background-image", grafico)
             }
             $(".sec_dois").show()
-            
-            // setTimeout(function(){
-                
-            // }, 2000);
         
         }  
     }) 
