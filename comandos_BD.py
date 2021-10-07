@@ -174,11 +174,11 @@ def query_cria_grafico(tygrafico):
         plt.close()
         
         # esse metodo vai selecionar a imagem e vai exclui-la da pasta
-        # imagem = Image.open(os.path.join(f"static/graficos/grafico_{repet}_{tygrafico}.png")) # vai selecionar a imagem
-        # redimencionarImagem = imagem.resize((550, 400)) # vai redimencionar a imagem
-        # nome_sem_ext = os.path.splitext(f"static/graficos/grafico_{repet}_{tygrafico}.png")[0]
+        imagem = Image.open(os.path.join(f"static/graficos/grafico_{repet}_{tygrafico}.png")) # vai selecionar a imagem
+        redimencionarImagem = imagem.resize((550, 400)) # vai redimencionar a imagem
+        nome_sem_ext = os.path.splitext(f"static/graficos/grafico_{repet}_{tygrafico}.png")[0]
 
-        # redimencionarImagem.save(os.path.join(nome_sem_ext+ '.gif' )) # vai salvar a imagem como o novo formato
+        redimencionarImagem.save(os.path.join(nome_sem_ext+ '.gif' )) # vai salvar a imagem como o novo formato
         # os.remove(f"static/graficos/grafico_{repet}_{tygrafico}.png")
         
         # from datetime import  date

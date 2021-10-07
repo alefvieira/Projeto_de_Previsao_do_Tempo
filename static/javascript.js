@@ -8,6 +8,12 @@ function select_sec(){
 
 // FUNÇÃO JQUERY QUE VAI CARREGAR AS INFORMAÇÕES NO ONLOAD DA PÁGINA
 $(function(){
+    $.ajax({
+        method: "GET",
+        url: "/",
+        data: {}
+    })
+    
     //tag select da página 2 do html 
     $("#select_grafic").on("change", function(){
         
