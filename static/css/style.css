@@ -48,21 +48,58 @@ form.regiao_Pesq label.anima{
     width: 200px;
     height: 50px;
     border-radius: 30px;
-    background-color: black;
+    /* background-color: black;
     border:solid 1px black;
-    color: white;
-    /* opacity: .8; */
+    color: white; */
 }
 .regiao_Pesq input[type=radio]:checked + label.anima{
-    color: black;
-    background: white;
+    color: white;
+    
+    background: #353431;
     opacity: 2px;
 }
-form.regiao_Pesq label.anima:hover{
-    background-color: rgb(158, 193, 233);
-    
+/* form.regiao_Pesq label.anima:hover{
+    background-color: #fcfdff;
+    color: black;
     border:solid 1px black;
-    color: black;    
+  
+} */
+/* botao 2 */
+.anima:before {
+    border-radius: 30px;
+	display: block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+	width: 0px;
+	z-index: -1;
+	content: '';
+	color: #000 !important;
+	background: #F7CA18;
+	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+
+}
+.anima:hover:before {
+    border-radius: 30px;
+	left: 0%;
+	right: auto;
+	width: 100%;
+
+}
+.anima {
+    border-radius: 30px;
+	color: black;
+	cursor: pointer;
+	display: block;
+	position: relative;
+	border: 2px solid #F7CA18;
+	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+}
+.anima:hover {
+	color: white !important;
+	background-color: transparent;
+	text-shadow: nthree;
 }
 /* FIM DO BOTAO _________________*/
 
@@ -122,7 +159,7 @@ footer{
 
 footer.container{
     color: white;
-    background: black;
+    background-color: black;
     opacity: 0.8;
     padding: 45px 0;
     border-top: solid 5px rgb(119, 154, 216);
@@ -262,3 +299,4 @@ header h1{
     }
 }
 
+/* --------------- */
