@@ -3,10 +3,13 @@ import pandas as pd
 import numpy as np
 import xmltodict
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import seaborn as sns
 from urllib.request import urlopen
 from sqlite3 import Error
 import json
+import os
+from PIL import Image
 
 # ESSA FUNÇÃO FAZ O UPDATE, INSERT E CREATE NO BANCO DE DADOS
 def query(conexao,sql):
@@ -93,7 +96,11 @@ def funcao_json(nome_arquivo, sql):
 
 def criaConteudoJSON():
     sql_v = "SELECT capitais.capital, valores.codigo, valores.atualizacao, valores.pressao, valores.temperatura, valores.tempo, valores.tempo_desc, valores.umidade, valores.vento_dir, valores.vento_int, valores.intensidade, capitais.regiao FROM valores, capitais WHERE capitais.codigo = valores.codigo" 
-    funcao_json("conteudo_secao", sql_v)
+    dados_capitais = consultar(Conexao_BD.vcon, sql_v)
+
+    with open(f'static/conteudo_secao.json', 'w', encoding='utf-8') as f:
+        json.dump(dados_capitais, f, ensure_ascii=False)
+    
 # funcao_json("valores", "SELECT * FROM valores")
 # funcao_json("capitais", SELECT * FROM capitais)
 #_____________________
@@ -111,56 +118,77 @@ def query_cria_grafico(tygrafico):
 
     dec = data['capitais']['metar']
     #ESSE IF VAI IMPERDIR QUE OS MESMOS GRAFICOS SE REPITAM
-    if compara[0][0] != dec[0]['atualizacao']:
+    # if compara[0][0] != dec[0]['atualizacao']:
         # ESTRUTURA DE REPETIÇÃO QUE VAI GERAR OS GRAFICOS
-        lista_graficos = ['Nordeste' , 'Norte', 'Centro-Oeste', 'Sul', 'Sudeste']
-        for repet in lista_graficos:
-            sql = f"SELECT  capitais.capital, valores.pressao, valores.temperatura, valores.umidade, valores.vento_dir, valores.vento_int  FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{repet}'"
-            res = consultar(Conexao_BD.vcon, sql)
-            dic = {
-                'capital': "",
-                'pressao': "",
-                'temperatura': "",
-                'umidade': "",
-                'vento_dir': "",
-                'vento_int': "",
-            }
-            # dic['capital'] = 
-            colunas = pd.DataFrame(res) # ESSE METODO COLOCA NOMES NAS COLUNAS
-            dic['capital'] = colunas[0]
-            dic['pressao'] = colunas[1]
-            dic['temperatura'] = colunas[2]
-            dic['umidade'] = colunas[3]
-            dic['vento_dir'] = colunas[4]
-            dic['vento_int'] = colunas[5]
+    lista_graficos = ['Nordeste' , 'Norte', 'Centro-Oeste', 'Sul', 'Sudeste']
+
+    for repet in lista_graficos:
+        sql = f"SELECT  capitais.capital, valores.pressao, valores.temperatura, valores.umidade, valores.vento_dir, valores.vento_int, valores.atualizacao FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{repet}'"
+        res = consultar(Conexao_BD.vcon, sql)
+
+
+        dic = {
+            'capital': "",
+            'pressao': "",
+            'temperatura': "",
+            'umidade': "",
+            'vento_dir': "",
+            'vento_int': "",
+        }
+        colunas = pd.DataFrame(res) # ESSE METODO COLOCA NOMES NAS COLUNAS
+        # print(colunas)
+        dic['capital'] = colunas[0]
+        dic['pressao'] = colunas[1]
+        dic['temperatura'] = colunas[2]
+        dic['umidade'] = colunas[3]
+        dic['vento_dir'] = colunas[4]
+        dic['vento_int'] = colunas[5]
+
+        # sns.set(rc={'figure.figsize': (7.2, 5), 'font.size': 5})
+        # sns.set(rc={})    width: 642px;height: 483px;
+        plt.rcParams.update({'figure.figsize': (7.5, 5.1), 'font.size': 9})
+
+        if tygrafico == 'pressao':
+            colunas = pd.DataFrame(dic, columns=['capital', 'pressao'])
+            plot = sns.barplot(data=colunas, x='capital', y='pressao')
+
+        elif tygrafico == 'temperatura': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'temperatura'])
+            plot = sns.barplot(data=colunas, x='capital', y='temperatura')
+
+        elif tygrafico == 'umidade': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'umidade'])
+            plot = sns.barplot(data=colunas, x='capital', y='umidade')
+
+        elif tygrafico == 'vento_dir': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'vento_dir'])
+            plot = sns.barplot(data=colunas, x='capital', y='vento_dir')
             
-            if tygrafico == 'pressao':
-                colunas = pd.DataFrame(dic, columns=['capital', 'pressao'])
-                plot = sns.barplot(data=colunas, x='capital', y='pressao')
-
-            elif tygrafico == 'temperatura': 
-                colunas = pd.DataFrame(dic, columns=['capital', 'temperatura'])
-                plot = sns.barplot(data=colunas, x='capital', y='temperatura')
-
-            elif tygrafico == 'umidade': 
-                colunas = pd.DataFrame(dic, columns=['capital', 'umidade'])
-                plot = sns.barplot(data=colunas, x='capital', y='umidade')
-
-            elif tygrafico == 'vento_dir': 
-                colunas = pd.DataFrame(dic, columns=['capital', 'vento_dir'])
-                plot = sns.barplot(data=colunas, x='capital', y='vento_dir')
-                
-            elif tygrafico == 'vento_int': 
-                colunas = pd.DataFrame(dic, columns=['capital', 'vento_int'])
-                plot = sns.barplot(data=colunas, x='capital', y='vento_int')
-            
-            else: break
-
-            plot.get_figure().savefig(f"static/graficos/grafico_{repet}_{tygrafico}.png")
-            plt.close()
-    print("FEITO")
-            
+        elif tygrafico == 'vento_int': 
+            colunas = pd.DataFrame(dic, columns=['capital', 'vento_int'])
+            plot = sns.barplot(data=colunas, x='capital', y='vento_int')
         
+        else: break
+
+        plot.get_figure().savefig(f"static/graficos/grafico_{repet}_{tygrafico}.png")
+        plt.close()
+        
+        # esse metodo vai selecionar a imagem e vai exclui-la da pasta
+        # imagem = Image.open(os.path.join(f"static/graficos/grafico_{repet}_{tygrafico}.png")) # vai selecionar a imagem
+        # redimencionarImagem = imagem.resize((550, 400)) # vai redimencionar a imagem
+        # nome_sem_ext = os.path.splitext(f"static/graficos/grafico_{repet}_{tygrafico}.png")[0]
+
+        # redimencionarImagem.save(os.path.join(nome_sem_ext+ '.gif' )) # vai salvar a imagem como o novo formato
+        # os.remove(f"static/graficos/grafico_{repet}_{tygrafico}.png")
+        
+        # from datetime import  date
+        # data_e_hora_atuais = date.today()
+        # print(data_e_hora_atuais)
+
+
+    print("FEITO")
+ 
+
 # query_cria_grafico('umidade')
 # query_cria_grafico('pressao')
 # query_cria_grafico('temperatura')
@@ -188,8 +216,8 @@ def atualizarValores():
         
         criaConteudoJSON() # VAI ATUALIZAR O ARQUIVO JSON
         
-    else: 
-        print("ESTÃO IGUAIS OU DEU ERRO")
+    # else: 
+    #     print("ESTÃO IGUAIS OU DEU ERRO")
 
 
 # print(compara)

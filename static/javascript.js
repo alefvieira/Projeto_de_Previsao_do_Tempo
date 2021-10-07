@@ -39,10 +39,11 @@ $(function(){
             $(".posicao-Sul").remove();
             
             for (let i of lista){
-                sec_dois.innerHTML += `<h1>${i}</h1><div class="posicao-${i}"></div>`
-                grafico = `url('../static/graficos/grafico_${i}_${valor_select}.png')`
-                
-                $(".posicao-"+i).css("background-image", grafico)
+                sec_dois.innerHTML += `<h1>${i}</h1><div class="posicao-${i}">
+                    <img src="../static/graficos/grafico_${i}_${valor_select}.gif" alt="Gráfico ${i} ${valor_select}">
+                </div>`
+                // grafico = `url('../static/graficos/grafico_${i}_${valor_select}.png')`                
+                // $(".posicao-"+i).src("background-image", grafico)
             }
             $(".sec_dois").show()
         

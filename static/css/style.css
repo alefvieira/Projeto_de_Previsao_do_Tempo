@@ -191,11 +191,12 @@ footer.container{
     margin-top: 10%;
 }
 #select_grafic{
+    -webkit-appearance: none; -moz-appearance: none; appearance: none;
     margin-bottom: 20px;
-    text-decoration: none;
+    /* text-decoration: none; */
     background-color: #213469;
     color: white;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     font-weight: bold;
     text-align: center;
     width: 100%;
@@ -210,11 +211,7 @@ footer.container{
 
 /* ____________________________________________ */
 .posicao-Sul, .posicao-Sudeste, .posicao-Centro-Oeste, .posicao-Nordeste, .posicao-Norte{
-    border: solid 1px black;
-    background-color: #cccccc;
-    width: 642px;
-    height: 483px;
-    margin: 0 auto;
+    text-align: center;
 }
 
 .posicao-div-img img[alt="Gráfico Sul"]{
@@ -254,6 +251,11 @@ header h1{
         width: 25%;   
     }
 
+}
+@media screen and (max-width: 753px ){
+    img[src*="../static/graficos/"] {
+        width: 100%;
+    }
 }
 @media screen and (max-width: 700px ){
     .posicao_div{
@@ -297,6 +299,10 @@ header h1{
     #select_grafic{
         font-size: 20px;
     }
+
 }
+
+
+
 
 /* --------------- */
