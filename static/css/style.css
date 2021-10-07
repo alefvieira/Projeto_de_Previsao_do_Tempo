@@ -7,6 +7,11 @@
 html,body{
     height: 100%; 
 }
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 .container{
     padding: 10px 15% ;
 
@@ -103,8 +108,12 @@ h2.regiao_capitais{
     text-align: center;
     padding: 50px 0 ;
 }
+main{
+    flex: 1 0 auto;
+}
 /* rodapé */
 footer{
+    flex-shrink: 0;
     width: 100%;
     height: 200px;
     font-weight: 300;
@@ -145,6 +154,7 @@ footer.container{
     margin-top: 10%;
 }
 #select_grafic{
+    margin-bottom: 20px;
     text-decoration: none;
     background-color: #213469;
     color: white;

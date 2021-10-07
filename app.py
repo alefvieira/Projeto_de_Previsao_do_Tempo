@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import comandos_BD
 import requests
 app = Flask(__name__)
-
+import requests
 
 @app.route('/')
 def index():
