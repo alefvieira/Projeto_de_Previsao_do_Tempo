@@ -8,15 +8,9 @@ function select_sec(){
 
 // FUNÇÃO JQUERY QUE VAI CARREGAR AS INFORMAÇÕES NO ONLOAD DA PÁGINA
 $(function(){
-    $.ajax({
-        method: "GET",
-        url: "/",
-        data: {}
-    })
-    
+
     //tag select da página 2 do html 
     $("#select_grafic").on("change", function(){
-        
         var valor_select = $(this).val()
         // alert(valor_select)
         // envia para servidor o valor
@@ -26,15 +20,8 @@ $(function(){
             data: {'tygrafico': valor_select}
         })
         sec_dois = document.querySelector('.sec_dois')
-        
-        sec_dois.innerHTML = ""
-        // setTimeout(function(){
-        //     // alert('TEMPO')
-        // }, 1000);
-
         if (valor_select == "0"){
-            $(".sec_dois").hide()
-            
+            $(".sec_dois").hide()  
         }else {
             // ESSA CODICIONAL VAI CRIAR AS TAGS QUE CHAMAM AS IMAGENS DOS GRÁFICOS
             var lista = ['Nordeste', 'Norte', 'Centro-Oeste', 'Sudeste', 'Sul']
@@ -48,11 +35,8 @@ $(function(){
                 sec_dois.innerHTML += `<h1>${i}</h1><div class="posicao-${i}">
                     <img src="../static/graficos/grafico_${i}_${valor_select}.gif" alt="Gráfico ${i} ${valor_select}">
                 </div>`
-                // grafico = `url('../static/graficos/grafico_${i}_${valor_select}.png')`                
-                // $(".posicao-"+i).src("background-image", grafico)
             }
             $(".sec_dois").show()
-        
         }  
     }) 
     // seciona
@@ -67,17 +51,14 @@ $(function(){
     })  
 });
 
-
 function cria_elementos(data){
     console.log(data)
-    
     var valor = select_sec()
     var section_conteudo = document.querySelector('#section_conteudo')
     section_conteudo.innerHTML=""
     console.log(data.length)
 
     for (let i = 0; i < data.length; i++){
-
         if (data[i][11] == valor){            
             section_conteudo.innerHTML += `
             <div class="posicao_div">
