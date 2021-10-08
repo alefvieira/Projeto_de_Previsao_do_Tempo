@@ -20,6 +20,7 @@ $(function(){
             data: {'tygrafico': valor_select}
         })
         sec_dois = document.querySelector('.sec_dois')
+        sec_dois.innerHTML = ""
         if (valor_select == "0"){
             $(".sec_dois").hide()  
         }else {
@@ -51,14 +52,17 @@ $(function(){
     })  
 });
 
+
 function cria_elementos(data){
     console.log(data)
+
     var valor = select_sec()
     var section_conteudo = document.querySelector('#section_conteudo')
     section_conteudo.innerHTML=""
     console.log(data.length)
 
     for (let i = 0; i < data.length; i++){
+
         if (data[i][11] == valor){            
             section_conteudo.innerHTML += `
             <div class="posicao_div">
