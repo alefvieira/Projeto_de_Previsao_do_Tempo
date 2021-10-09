@@ -127,7 +127,6 @@ function cria_elementos(data){
 
 // })
 
-
 // let minhaUrl = `${window.location.origin}/${valor_select}`
         // var url = window.location.search;
         // var minhaUrl = window.location.href = `${window.location.search}?`+valor_select
