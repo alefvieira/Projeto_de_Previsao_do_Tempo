@@ -115,11 +115,6 @@ def insertValores():
 
 #ADICIONAR OS GRAFICOS
 def query_cria_grafico():
-    compara =  function_compara()
-
-    #ESSE IF VAI IMPERDIR QUE OS MESMOS GRAFICOS SE REPITAM
-    # if compara == True:
-    # ESTRUTURA DE REPETIÇÃO QUE VAI GERAR OS GRAFICOS
     lista_graficos = ['Nordeste' , 'Norte', 'Centro-Oeste', 'Sul', 'Sudeste']
 
     for repet in lista_graficos:
@@ -147,25 +142,29 @@ def query_cria_grafico():
         colunas = pd.DataFrame(dic, columns=['capital', 'pressao'])
         plot = sns.barplot(data=colunas, x='capital', y='pressao')
         plot.get_figure().savefig(f"static/graficos/grafico_{repet}_pressao.png")
+        plt.close()
     # elif tygrafico == 'temperatura': 
         colunas = pd.DataFrame(dic, columns=['capital', 'temperatura'])
         plot = sns.barplot(data=colunas, x='capital', y='temperatura')
         plot.get_figure().savefig(f"static/graficos/grafico_{repet}_temperatura.png")
+        plt.close()
     # elif tygrafico == 'umidade': 
         colunas = pd.DataFrame(dic, columns=['capital', 'umidade'])
         plot = sns.barplot(data=colunas, x='capital', y='umidade')
         plot.get_figure().savefig(f"static/graficos/grafico_{repet}_umidade.png")
+        plt.close()
     # elif tygrafico == 'vento_dir': 
         colunas = pd.DataFrame(dic, columns=['capital', 'vento_dir'])
         plot = sns.barplot(data=colunas, x='capital', y='vento_dir')
         plot.get_figure().savefig(f"static/graficos/grafico_{repet}_vento_dir.png")
+        plt.close()
     # elif tygrafico == 'vento_int': 
         colunas = pd.DataFrame(dic, columns=['capital', 'vento_int'])
         plot = sns.barplot(data=colunas, x='capital', y='vento_int')
         plot.get_figure().savefig(f"static/graficos/grafico_{repet}_vento_int.png")
+        plt.close()
 
         # plot.get_figure().savefig(f"static/graficos/grafico_{repet}_{tygrafico}.png")
-        plt.close()
     
         # esse metodo vai selecionar a imagem e vai exclui-la da pasta
         # imagem = Image.open(os.path.join(f"static/graficos/grafico_{repet}_{tygrafico}.png")) # vai selecionar a imagem
@@ -179,11 +178,6 @@ def query_cria_grafico():
         # data_e_hora_atuais = date.today()
         # print(data_e_hora_atuais)
 
-# query_cria_grafico('umidade')
-# query_cria_grafico('pressao')
-# query_cria_grafico('temperatura')
-# query_cria_grafico('vento_dir')
-# query_cria_grafico('vento_int')
 
 # FUNÇÃO QUE ATUALIZA O BANCO DE DADOS E CHAMA AS FUNÇÕES DE GERAR GRAFICOS E ATUALIZAR JSON
 def atualizarValores():
@@ -219,13 +213,6 @@ def function_compara():
 
     if dados[0][2] != dec:
         return True
-    
     return False
 
-
-function_compara()
-# criarTabelas()
-# insertCapitais()
-# insertValores()
-# atualizarValores()
 
